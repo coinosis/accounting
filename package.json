@@ -1,0 +1,16 @@
+{
+  "name": "finanzas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^4.10.1",
+    "csv-stringify": "^5.5.0"
+  }
+}
