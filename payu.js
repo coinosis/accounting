@@ -1,5 +1,5 @@
 if (process.argv.length < 3) {
-  console.log(`usage: node ./accounting.js <file-path>`);
+  console.log(`usage: node ./payu.js <file-path>`);
   process.exit();
 }
 const fs = require('fs');
