@@ -10,7 +10,7 @@ const isReceiving = async address => {
 
 const extractAddress = data => {
   const bufferData = util.toBuffer(data);
-  const bufferAddress = bufferData.subarray(bufferData.length - 20);
+  const bufferAddress = bufferData.subarray(16, 36);
   const address = util.bufferToHex(bufferAddress);
   return address;
 }
