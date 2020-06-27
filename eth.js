@@ -40,6 +40,9 @@ const getRecords = async () => {
   const txList = await fetcher();
   for (const tx of txList) {
     console.log(tx);
+    if (tx.isError != '0') {
+      throw new Error(tx);
+    }
     const receiving = await isReceiving(tx.to);
     const event = receiving ? '' : await getEvent(tx.to);
     const userAddress = receiving ? tx.from : extractAddress(tx.input);
