@@ -29,7 +29,7 @@ const TRANSFER = 'Transferencia bancaria';
 const EMILIO = 'Emilio Silva';
 const LIABILITY_EMILIO = 'pasivo:emilio';
 const accounts = {
-  'Venta': 'ingreso:fiat',
+  'Venta': 'ingreso:cambio:cop',
   'Tarifa PayU': 'gasto:tarifas:payu',
   'Impuesto tarifa PayU': 'gasto:tarifas:payu',
   'Retenci?n de ICA': 'gasto:tarifas:payu',
