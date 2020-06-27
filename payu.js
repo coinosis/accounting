@@ -29,6 +29,7 @@ const badValues = [
 const ASSET = 'activo:payu';
 const CURRENCY = 'COP';
 const TESTING = 'testing';
+const SALE = 'Venta';
 const TRANSFER = 'Transferencia bancaria';
 const EMILIO = 'Emilio Silva';
 const LIABILITY_EMILIO = 'pasivo:emilio';
@@ -83,7 +84,7 @@ const getRecords = async path => {
       records.length
         && records[records.length - 1].description === TRANSFER
     ) continue;
-    if (category) {
+    if (category === SALE) {
       const reference = datum[keys.reference];
       const referenceGroups = reference.split(':');
       const event = referenceGroups[0];
