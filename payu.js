@@ -68,7 +68,7 @@ const getRecords = async path => {
   for (const datum of data) {
     const category = datum[keys.category];
     if (category === TRANSFER) {
-      records.push({
+      headers.push({
         date: datum[keys.date],
         event: '',
         userName: EMILIO,
@@ -78,13 +78,9 @@ const getRecords = async path => {
         debit: LIABILITY_EMILIO,
         credit: ASSET,
       });
-      continue;
+      settings.push({ category });
     }
-    if (
-      records.length
-        && records[records.length - 1].description === TRANSFER
-    ) continue;
-    if (category === SALE) {
+    else if (category === SALE) {
       const reference = datum[keys.reference];
       const referenceGroups = reference.split(':');
       const event = referenceGroups[0];
@@ -100,10 +96,16 @@ const getRecords = async path => {
       };
       headers.push(header);
       const environment = referenceGroups[3];
-      settings.push({ userName, userAddress, environment });
+      settings.push({ category, userName, userAddress, environment });
     }
     const header = headers[headers.length - 1];
     const setting = settings[settings.length - 1];
+    if (setting.category === TRANSFER) {
+      if (category === TRANSFER) {
+        records.push(header);
+      }
+      continue;
+    }
     const credit = setting.environment === TESTING
           ? creditors[setting.userName]
           ? creditors[setting.userName]
