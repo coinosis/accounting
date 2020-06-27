@@ -44,14 +44,17 @@ const getRecords = async () => {
       throw new Error(tx);
     }
     const receiving = await isReceiving(tx.to);
+    const date = new Date(Number(tx.timeStamp) * 1000);
     const event = receiving ? '' : await getEvent(tx.to);
     const userAddress = receiving ? tx.from : extractAddress(tx.input);
     const userName = await getUserName(userAddress) || userAddress;
     const description = receiving ? 'fund owl' : 'inscripción';
+    const txFeeWei = tx.gasUsed * tx.gasPrice;
+    const txFee = web3Utils.fromWei(String(txFeeWei));
     const debit = receiving ? 'activo:owl' : 'gasto:cambio:eth';
     const credit = receiving ? `pasivo:${userName}` : 'activo:owl';
     const record = {
-      date: new Date(Number(tx.timeStamp) * 1000),
+      date,
       event,
       userName,
       description,
@@ -61,8 +64,24 @@ const getRecords = async () => {
       credit,
       automated: 'TRUE',
     };
-    console.log(record);
-    records.push(record);
+    if (record.amount != 0) {
+      console.log(record);
+      records.push(record);
+    }
+    const feeRecord = {
+      date,
+      event,
+      userName,
+      description: `tarifa ${description}`,
+      amount: txFee,
+      currency: CURRENCY,
+      debit: 'gasto:tarifas:eth',
+      credit: 'activo:owl',
+    };
+    if (!receiving) {
+      console.log(feeRecord);
+      records.push(feeRecord);
+    }
   }
 
 }
