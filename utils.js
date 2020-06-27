@@ -6,4 +6,10 @@ const getUserName = async address => {
   return user.name;
 }
 
-module.exports = { getUserName };
+const getEvent = async address => {
+  const event = await db.events.findOne({ address });
+  if (event === null) return '';
+  return event.url;
+}
+
+module.exports = { getUserName, getEvent };

@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "csv-parse": "^4.10.1",
-    "csv-stringify": "^5.5.0"
+    "csv-stringify": "^5.5.0",
+    "node-fetch": "^2.6.0",
+    "web3-utils": "^1.2.9"
   },
   "devDependencies": {
     "eslint": "^7.3.1"
