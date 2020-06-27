@@ -93,6 +93,9 @@ const getRecords = async path => {
         description: '',
         amount: '',
         CURRENCY,
+        debit: '',
+        credit: '',
+        automated: 'TRUE',
       };
       headers.push(header);
       const environment = referenceGroups[3];
