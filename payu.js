@@ -6,12 +6,7 @@ const fs = require('fs');
 const parse = require('csv-parse/lib/sync');
 const stringify = require('csv-stringify/lib/sync');
 const db = require('../owl/src/db.js');
-
-const getUserName = async address => {
-  const user = await db.users.findOne({ address });
-  if (user === null) return '';
-  return user.name;
-}
+const { getUserName } = require('./utils.js');
 
 const keys = {
   category: 'Grupo de operaci?n',
