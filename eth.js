@@ -1,7 +1,12 @@
 const fetch = require('node-fetch');
 const web3Utils = require('web3-utils');
 const { owlAddress, etherscanKey } = require('./settings.json');
-const { isReceiving, getUserName, getEvent } = require('./utils.js');
+const {
+  isReceiving,
+  extractAddress,
+  getUserName,
+  getEvent,
+} = require('./utils.js');
 const db = require('../owl/src/db.js');
 
 const CURRENCY = 'ETH';
@@ -37,7 +42,8 @@ const getRecords = async () => {
     console.log(tx);
     const receiving = await isReceiving(tx.to);
     const event = receiving ? '' : await getEvent(tx.to);
-    const userName = receiving ? await getUserName(tx.from) || tx.from : '';
+    const userAddress = receiving ? tx.from : extractAddress(tx.input);
+    const userName = await getUserName(userAddress) || userAddress;
     const description = receiving ? 'fund owl' : 'inscripción';
     const debit = receiving ? 'activo:owl' : 'gasto:cambio:eth';
     const credit = receiving ? `pasivo:${userName}` : 'activo:owl';
@@ -55,7 +61,12 @@ const getRecords = async () => {
     console.log(record);
     records.push(record);
   }
+
+}
+
+const main = async () => {
+  await getRecords();
   db.disconnect();
 }
 
-getRecords();
+main();

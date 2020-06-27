@@ -1,10 +1,18 @@
 const web3Utils = require('web3-utils');
+const util = require('ethereumjs-util');
 const db = require('../owl/src/db.js');
 const { deployAddress, owlAddress } = require('./settings.json');
 
 const isReceiving = async address => {
   const checksumAddress = web3Utils.toChecksumAddress(address);
   return checksumAddress === owlAddress;
+}
+
+const extractAddress = data => {
+  const bufferData = util.toBuffer(data);
+  const bufferAddress = bufferData.subarray(bufferData.length - 20);
+  const address = util.bufferToHex(bufferAddress);
+  return address;
 }
 
 const getUserName = async address => {
@@ -24,4 +32,4 @@ const getEvent = async address => {
   return event.url;
 }
 
-module.exports = { isReceiving, getUserName, getEvent };
+module.exports = { isReceiving, extractAddress, getUserName, getEvent };
