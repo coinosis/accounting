@@ -3,6 +3,7 @@ const web3Utils = require('web3-utils');
 const { owlAddress, etherscanKey } = require('./settings.json');
 const {
   isReceiving,
+  isClapping,
   extractAddress,
   getUserName,
   getEvent,
@@ -44,11 +45,16 @@ const getRecords = async () => {
       throw new Error(tx);
     }
     const receiving = await isReceiving(tx.to);
+    const clapping = isClapping(tx.input);
     const date = new Date(Number(tx.timeStamp) * 1000);
     const event = receiving ? '' : await getEvent(tx.to);
     const userAddress = receiving ? tx.from : extractAddress(tx.input);
     const userName = await getUserName(userAddress) || userAddress;
-    const description = receiving ? 'fund owl' : 'inscripción';
+    const description = receiving
+    ? 'fund owl'
+    : clapping
+    ? 'aplausos'
+    : 'inscripción';
     const txFeeWei = tx.gasUsed * tx.gasPrice;
     const txFee = web3Utils.fromWei(String(txFeeWei));
     const debit = receiving ? 'activo:owl' : 'gasto:cambio:eth';
@@ -77,6 +83,7 @@ const getRecords = async () => {
       currency: CURRENCY,
       debit: 'gasto:tarifas:eth',
       credit: 'activo:owl',
+      automated: 'TRUE',
     };
     if (!receiving) {
       console.log(feeRecord);

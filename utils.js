@@ -8,6 +8,11 @@ const isReceiving = async address => {
   return checksumAddress === owlAddress;
 }
 
+const isClapping = data => {
+  const bufferData = util.toBuffer(data);
+  return bufferData.length > 36;
+}
+
 const extractAddress = data => {
   const bufferData = util.toBuffer(data);
   const bufferAddress = bufferData.subarray(16, 36);
@@ -32,4 +37,10 @@ const getEvent = async address => {
   return event.url;
 }
 
-module.exports = { isReceiving, extractAddress, getUserName, getEvent };
+module.exports = {
+  isReceiving,
+  isClapping,
+  extractAddress,
+  getUserName,
+  getEvent,
+};
