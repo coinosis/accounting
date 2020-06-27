@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const web3Utils = require('web3-utils');
 const { owlAddress, etherscanKey } = require('./settings.json');
-const { getEvent } = require('./utils.js');
+const { isReceiving, getUserName, getEvent } = require('./utils.js');
 const db = require('../owl/src/db.js');
 
 const CURRENCY = 'ETH';
@@ -35,17 +35,21 @@ const getRecords = async () => {
   const txList = await fetcher();
   for (const tx of txList) {
     console.log(tx);
-    const checksumTo = web3Utils.toChecksumAddress(tx.to);
-    const event = await getEvent(checksumTo);
+    const receiving = await isReceiving(tx.to);
+    const event = receiving ? '' : await getEvent(tx.to);
+    const userName = receiving ? await getUserName(tx.from) || tx.from : '';
+    const description = receiving ? 'fund owl' : 'inscripción';
+    const debit = receiving ? 'activo:owl' : 'gasto:cambio:eth';
+    const credit = receiving ? `pasivo:${userName}` : 'activo:owl';
     const record = {
       date: new Date(Number(tx.timeStamp) * 1000),
       event,
-      userName: '',
-      description: 'inscripción',
+      userName,
+      description,
       amount: web3Utils.fromWei(tx.value),
       currency: CURRENCY,
-      debit: 'gasto:cambio:eth',
-      credit: 'activo:owl',
+      debit,
+      credit,
       automated: 'TRUE',
     };
     console.log(record);
