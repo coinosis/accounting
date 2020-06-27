@@ -72,6 +72,7 @@ const getRecords = async path => {
         CURRENCY,
         debit: LIABILITY_EMILIO,
         credit: ASSET,
+        automated: 'TRUE',
       });
       settings.push({ category });
     }
