@@ -89,7 +89,10 @@ const getRecords = async path => {
       const userName = await getUserName(userAddress);
       const header = {
         date: datum[keys.date],
-        description: `${event} - ${userName}`,
+        event,
+        userName: userName || userAddress,
+        description: '',
+        amount: '',
         CURRENCY,
       };
       headers.push(header);
@@ -110,7 +113,7 @@ const getRecords = async path => {
         debit: ASSET,
         credit,
       };
-      creditRecord.description += ` - ${descriptions[datum[keys.credit]]}`;
+      creditRecord.description = descriptions[datum[keys.credit]];
       records.push(creditRecord);
     }
     if (!badValues.includes(datum[keys.debit])) {
@@ -120,7 +123,7 @@ const getRecords = async path => {
         debit: accounts[datum[keys.debit]],
         credit: ASSET,
       };
-      debitRecord.description += ` - ${descriptions[datum[keys.debit]]}`;
+      debitRecord.description = descriptions[datum[keys.debit]];
       records.push(debitRecord);
     }
   }
