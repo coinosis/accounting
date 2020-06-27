@@ -30,7 +30,7 @@ const ASSET = 'activo:payu';
 const CURRENCY = 'COP';
 const TESTING = 'testing';
 const TRANSFER = 'Transferencia bancaria';
-const TRANSFER_EMILIO = 'transferencia Emilio';
+const EMILIO = 'Emilio Silva';
 const LIABILITY_EMILIO = 'pasivo:emilio';
 const accounts = {
   'Venta': 'ingreso:fiat',
@@ -69,9 +69,11 @@ const getRecords = async path => {
     if (category === TRANSFER) {
       records.push({
         date: datum[keys.date],
-        description: TRANSFER_EMILIO,
-        CURRENCY,
+        event: '',
+        userName: EMILIO,
+        description: TRANSFER,
         amount: datum[keys.debitAmount],
+        CURRENCY,
         debit: LIABILITY_EMILIO,
         credit: ASSET,
       });
@@ -79,7 +81,7 @@ const getRecords = async path => {
     }
     if (
       records.length
-        && records[records.length - 1].description === TRANSFER_EMILIO
+        && records[records.length - 1].description === TRANSFER
     ) continue;
     if (category) {
       const reference = datum[keys.reference];
