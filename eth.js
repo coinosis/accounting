@@ -50,6 +50,7 @@ const getRecords = async () => {
     const event = receiving ? '' : await getEvent(tx.to);
     const userAddress = receiving ? tx.from : extractAddress(tx.input);
     const userName = await getUserName(userAddress) || userAddress;
+    const creditReceiving = userName === 'deploy' ? 'activo' : 'pasivo';
     const description = receiving
     ? 'fund owl'
     : clapping
@@ -58,7 +59,7 @@ const getRecords = async () => {
     const txFeeWei = tx.gasUsed * tx.gasPrice;
     const txFee = web3Utils.fromWei(String(txFeeWei));
     const debit = receiving ? 'activo:owl' : 'gasto:cambio:eth';
-    const credit = receiving ? `pasivo:${userName}` : 'activo:owl';
+    const credit = receiving ? `${creditReceiving}:${userName}` : 'activo:owl';
     const record = {
       date,
       event,
@@ -81,12 +82,10 @@ const getRecords = async () => {
       amount: txFee,
       currency: CURRENCY,
       debit: 'gasto:tarifas:eth',
-      credit: 'activo:owl',
+      credit,
       author: AUTHOR,
     };
-    if (!receiving) {
-      records.push(feeRecord);
-    }
+    records.push(feeRecord);
   }
   return records;
 }
