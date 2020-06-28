@@ -64,7 +64,7 @@ const getRecords = async path => {
         userName: EMILIO,
         description: TRANSFER,
         amount: datum[keys.debitAmount],
-        CURRENCY,
+        currency: CURRENCY,
         debit: LIABILITY_EMILIO,
         credit: ASSET,
         author: AUTHOR,
