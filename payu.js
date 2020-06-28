@@ -22,6 +22,7 @@ const SALE = 'Venta';
 const TRANSFER = 'Transferencia bancaria';
 const EMILIO = 'Emilio Silva';
 const LIABILITY_EMILIO = 'pasivo:emilio';
+const AUTHOR = 'macaw';
 const accounts = {
   'Venta': 'ingreso:cambio:cop',
   'Tarifa PayU': 'gasto:tarifas:payu',
@@ -66,7 +67,7 @@ const getRecords = async path => {
         CURRENCY,
         debit: LIABILITY_EMILIO,
         credit: ASSET,
-        automated: 'TRUE',
+        author: AUTHOR,
       });
       settings.push({ category });
     }
@@ -85,7 +86,7 @@ const getRecords = async path => {
         CURRENCY,
         debit: '',
         credit: '',
-        automated: 'TRUE',
+        author: AUTHOR,
       };
       headers.push(header);
       const environment = referenceGroups[3];
