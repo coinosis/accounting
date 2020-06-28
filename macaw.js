@@ -7,13 +7,21 @@ const db = require('../owl/src/db.js');
 const payu = require('./payu.js');
 const eth = require('./eth.js');
 
+const dateSort = (a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  return dateA - dateB;
+}
+
 const getRecords = async () => {
 
   const path = process.argv[2];
   const payuRecords = await payu.getRecords(path);
   const ethRecords = await eth.getRecords();
-  console.log(payuRecords);
-  console.log(ethRecords);
+  const records = [ ...payuRecords, ...ethRecords ];
+  const sortedRecords = records.sort(dateSort);
+  const csv = stringify(sortedRecords);
+  console.log(csv);
   db.disconnect();
 
 }
