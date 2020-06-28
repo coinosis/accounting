@@ -42,7 +42,6 @@ const getRecords = async () => {
   const records = [];
   const txList = await fetcher();
   for (const tx of txList) {
-    console.log(tx);
     if (tx.isError != '0') {
       throw new Error(tx);
     }
@@ -73,7 +72,6 @@ const getRecords = async () => {
       author: AUTHOR,
     };
     if (record.amount != 0) {
-      console.log(record);
       records.push(record);
     }
     const feeRecord = {
@@ -88,15 +86,15 @@ const getRecords = async () => {
       author: AUTHOR,
     };
     if (!receiving) {
-      console.log(feeRecord);
       records.push(feeRecord);
     }
   }
-
+  return records;
 }
 
 const main = async () => {
-  await getRecords();
+  const records = await getRecords();
+  console.log(records);
   db.disconnect();
 }
 
