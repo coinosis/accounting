@@ -4,6 +4,7 @@ const { owlAddress, etherscanKey } = require('./settings.json');
 const {
   isReceiving,
   isClapping,
+  formatDate,
   extractAddress,
   getUserName,
   getEvent,
@@ -46,7 +47,7 @@ const getRecords = async () => {
     }
     const receiving = await isReceiving(tx.to);
     const clapping = isClapping(tx.input);
-    const date = new Date(Number(tx.timeStamp) * 1000);
+    const date = formatDate(tx.timeStamp);
     const event = receiving ? '' : await getEvent(tx.to);
     const userAddress = receiving ? tx.from : extractAddress(tx.input);
     const userName = await getUserName(userAddress) || userAddress;

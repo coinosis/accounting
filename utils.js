@@ -13,6 +13,17 @@ const isClapping = data => {
   return bufferData.length > 36;
 }
 
+// taken from https://stackoverflow.com/a/51643788/2430274
+const formatDate = timestamp => {
+  const now = new Date();
+  const offset = now.getTimezoneOffset() * 60;
+  const localTimestamp = timestamp - offset;
+  const date = new Date(localTimestamp * 1000);
+  const iso = date.toISOString();
+  const isoish = iso.replace('T', ' ').slice(0, 19);
+  return isoish;
+}
+
 const extractAddress = data => {
   const bufferData = util.toBuffer(data);
   const bufferAddress = bufferData.subarray(16, 36);
@@ -40,6 +51,7 @@ const getEvent = async address => {
 module.exports = {
   isReceiving,
   isClapping,
+  formatDate,
   extractAddress,
   getUserName,
   getEvent,
