@@ -1,11 +1,5 @@
-if (process.argv.length < 3) {
-  console.log(`usage: node ./payu.js <file-path>`);
-  process.exit();
-}
 const fs = require('fs');
 const parse = require('csv-parse/lib/sync');
-const stringify = require('csv-stringify/lib/sync');
-const db = require('../owl/src/db.js');
 const { getUserName } = require('./utils.js');
 
 const keys = {
@@ -131,14 +125,7 @@ const getRecords = async path => {
       records.push(debitRecord);
     }
   }
-  db.disconnect();
-  records.reverse();
   return records;
 }
 
-const exportRecords = async path => {
-  const records = await getRecords(path);
-  console.log(stringify(records));
-}
-
-exportRecords(process.argv[2]);
+module.exports = { getRecords };

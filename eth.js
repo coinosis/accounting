@@ -9,7 +9,6 @@ const {
   getUserName,
   getEvent,
 } = require('./utils.js');
-const db = require('../owl/src/db.js');
 
 const CURRENCY = 'ETH';
 const AUTHOR = 'macaw';
@@ -92,10 +91,4 @@ const getRecords = async () => {
   return records;
 }
 
-const main = async () => {
-  const records = await getRecords();
-  console.log(records);
-  db.disconnect();
-}
-
-main();
+module.exports = { getRecords };
