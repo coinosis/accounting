@@ -12,6 +12,7 @@ const {
 const db = require('../owl/src/db.js');
 
 const CURRENCY = 'ETH';
+const AUTHOR = 'macaw';
 const etherscanURL = 'https://api.etherscan.io/api';
 const params = {
     module: 'account',
@@ -69,7 +70,7 @@ const getRecords = async () => {
       currency: CURRENCY,
       debit,
       credit,
-      automated: 'TRUE',
+      author: AUTHOR,
     };
     if (record.amount != 0) {
       console.log(record);
@@ -84,7 +85,7 @@ const getRecords = async () => {
       currency: CURRENCY,
       debit: 'gasto:tarifas:eth',
       credit: 'activo:owl',
-      automated: 'TRUE',
+      author: AUTHOR,
     };
     if (!receiving) {
       console.log(feeRecord);
