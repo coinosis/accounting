@@ -21,7 +21,8 @@ const TESTING = 'testing';
 const SALE = 'Venta';
 const TRANSFER = 'Transferencia bancaria';
 const EMILIO = 'Emilio Silva';
-const LIABILITY_EMILIO = 'pasivo:emilio';
+const LIABILITY_EMILIO = 'pasivo:Emilio Silva';
+const LIABILITY_JUAN = 'pasivo:Juan David'
 const AUTHOR = 'macaw';
 const accounts = {
   'Venta': 'ingreso:cambio:cop',
@@ -38,14 +39,14 @@ const descriptions = {
   'Retenci?n de renta': 'reteRenta tarifa PayU',
 };
 const creditors = {
-  'Juan David': 'pasivo:juan',
-  'JD Account 2 - 25may': 'pasivo:juan',
-  'Emilio Silva': 'pasivo:emilio',
-  '0xe1fF19182deb2058016Ae0627c1E4660A895196a': 'pasivo:emilio',
-  '0x65ce6578ceA65E5779f0769901D2d4158bf37F53': 'pasivo:emilio',
-  '0x1b888AeB1F7BBb66743D29dB2f3eAb127682F91D': 'pasivo:emilio',
-  '0x5539e97E0053d26bcF663DDCa7108dF87955a802': 'pasivo:juan',
-  '0xb1B8D06A45651DE7f05CeddC2D009d14Fa251e06': 'pasivo:juan',
+  'Juan David': LIABILITY_JUAN,
+  'JD Account 2 - 25may': LIABILITY_JUAN,
+  'Emilio Silva': LIABILITY_EMILIO,
+  '0xe1fF19182deb2058016Ae0627c1E4660A895196a': LIABILITY_EMILIO,
+  '0x65ce6578ceA65E5779f0769901D2d4158bf37F53': LIABILITY_EMILIO,
+  '0x1b888AeB1F7BBb66743D29dB2f3eAb127682F91D': LIABILITY_EMILIO,
+  '0x5539e97E0053d26bcF663DDCa7108dF87955a802': LIABILITY_JUAN,
+  '0xb1B8D06A45651DE7f05CeddC2D009d14Fa251e06': LIABILITY_JUAN,
 };
 
 const getRecords = async path => {
