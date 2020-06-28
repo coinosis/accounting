@@ -44,6 +44,9 @@ const getRecords = async () => {
     if (tx.isError != '0') {
       throw new Error(tx);
     }
+    if (tx.confirmations < 6) {
+      continue;
+    }
     const receiving = await isReceiving(tx.to);
     const clapping = isClapping(tx.input);
     const date = formatDate(tx.timeStamp);
