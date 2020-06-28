@@ -83,7 +83,7 @@ const getRecords = async path => {
         userName: userName || userAddress,
         description: '',
         amount: '',
-        CURRENCY,
+        currency: CURRENCY,
         debit: '',
         credit: '',
         author: AUTHOR,
