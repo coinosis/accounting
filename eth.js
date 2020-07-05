@@ -41,9 +41,6 @@ const getRecords = async () => {
   const records = [];
   const txList = await fetcher();
   for (const tx of txList) {
-    if (tx.isError != '0') {
-      throw new Error(tx);
-    }
     if (tx.confirmations < 6) {
       continue;
     }
@@ -54,11 +51,14 @@ const getRecords = async () => {
     const userAddress = receiving ? tx.from : extractAddress(tx.input);
     const userName = await getUserName(userAddress) || userAddress;
     const creditReceiving = userName === 'deploy' ? 'activo' : 'pasivo';
-    const description = receiving
+    let description = receiving
     ? 'fund owl'
     : clapping
     ? 'aplausos'
     : 'inscripción';
+    if (tx.isError == '1') {
+      description += ' (error)';
+    }
     const txFeeWei = tx.gasUsed * tx.gasPrice;
     const txFee = web3Utils.fromWei(String(txFeeWei));
     const debit = receiving ? 'activo:owl' : 'gasto:cambio:eth';
@@ -74,7 +74,7 @@ const getRecords = async () => {
       credit,
       author: AUTHOR,
     };
-    if (record.amount != 0) {
+    if (record.amount != 0 && tx.isError == '0') {
       records.push(record);
     }
     const feeRecord = {
