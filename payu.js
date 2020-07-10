@@ -17,7 +17,7 @@ const badValues = [
 ]
 const ASSET = 'activo:payu';
 const CURRENCY = 'COP';
-const TESTING = 'testing';
+const STAGING = 'staging';
 const SALE = 'Venta';
 const TRANSFER = 'Transferencia bancaria';
 const EMILIO = 'Emilio Silva';
@@ -101,7 +101,7 @@ const getRecords = async path => {
       }
       continue;
     }
-    const credit = setting.environment === TESTING
+    const credit = setting.environment === STAGING
           ? creditors[setting.userName]
           ? creditors[setting.userName]
           : creditors[setting.userAddress]
