@@ -3,9 +3,15 @@ if (process.argv.length < 3) {
   process.exit();
 }
 const stringify = require('csv-stringify/lib/sync');
-const db = require('../owl/src/db.js');
+const dbModule = require('./db.js');
 const payu = require('./payu.js');
 const eth = require('./eth.js');
+const utils = require('./utils.js');
+
+const initialize = async () => {
+  await dbModule.connect();
+  utils.initialize();
+}
 
 const dateSort = (a, b) => {
   const dateA = new Date(a.date);
@@ -15,6 +21,7 @@ const dateSort = (a, b) => {
 
 const getRecords = async () => {
 
+  await initialize();
   const path = process.argv[2];
   const payuRecords = await payu.getRecords(path);
   const ethRecords = await eth.getRecords();
@@ -22,7 +29,7 @@ const getRecords = async () => {
   const sortedRecords = records.sort(dateSort);
   const csv = stringify(sortedRecords);
   console.log(csv);
-  db.disconnect();
+  dbModule.disconnect();
 
 }
 
