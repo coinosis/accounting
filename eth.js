@@ -10,9 +10,9 @@ const {
   getEvent,
 } = require('./utils.js');
 
-const CURRENCY = 'ETH';
+const CURRENCY = 'xDAI';
 const AUTHOR = 'macaw';
-const etherscanURL = 'https://api.etherscan.io/api';
+const etherscanURL = 'https://blockscout.com/poa/xdai/api';
 const params = {
     module: 'account',
     action: 'txlist',
@@ -55,13 +55,13 @@ const getRecords = async () => {
     ? 'fund owl'
     : clapping
     ? 'aplausos'
-    : 'inscripción';
+    : 'inscripción saliente';
     if (tx.isError == '1') {
       description += ' (error)';
     }
     const txFeeWei = tx.gasUsed * tx.gasPrice;
     const txFee = web3Utils.fromWei(String(txFeeWei));
-    const debit = receiving ? 'activo:owl' : 'gasto:cambio:eth';
+    const debit = receiving ? 'activo:owl' : 'gasto:cambio';
     const credit = receiving ? `${creditReceiving}:${userName}` : 'activo:owl';
     const record = {
       date,
@@ -84,7 +84,7 @@ const getRecords = async () => {
       description: `tarifa ${description}`,
       amount: txFee,
       currency: CURRENCY,
-      debit: 'gasto:tarifas:eth',
+      debit: 'gasto:tarifas:xdai',
       credit,
       author: AUTHOR,
     };

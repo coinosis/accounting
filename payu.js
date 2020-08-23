@@ -25,14 +25,14 @@ const LIABILITY_EMILIO = 'pasivo:Emilio Silva';
 const LIABILITY_JUAN = 'pasivo:Juan David'
 const AUTHOR = 'macaw';
 const accounts = {
-  'Venta': 'ingreso:cambio:cop',
+  'Venta': 'ingreso:cambio',
   'Tarifa PayU': 'gasto:tarifas:payu',
   'Impuesto tarifa PayU': 'gasto:tarifas:payu',
   'Retenci?n de ICA': 'gasto:tarifas:payu',
   'Retenci?n de renta': 'gasto:tarifas:payu',
 };
 const descriptions = {
-  'Venta': 'inscripción',
+  'Venta': 'inscripción entrante',
   'Tarifa PayU': 'tarifa PayU',
   'Impuesto tarifa PayU': 'IVA tarifa PayU',
   'Retenci?n de ICA': 'reteICA tarifa PayU',
@@ -45,6 +45,7 @@ const creditors = {
   '0xe1fF19182deb2058016Ae0627c1E4660A895196a': LIABILITY_EMILIO,
   '0x65ce6578ceA65E5779f0769901D2d4158bf37F53': LIABILITY_EMILIO,
   '0x1b888AeB1F7BBb66743D29dB2f3eAb127682F91D': LIABILITY_EMILIO,
+  '0x0Ff3A89fe7FE22Da2FEA8Bb4DC0B1Ab614e48E0a': LIABILITY_EMILIO,
   '0x5539e97E0053d26bcF663DDCa7108dF87955a802': LIABILITY_JUAN,
   '0xb1B8D06A45651DE7f05CeddC2D009d14Fa251e06': LIABILITY_JUAN,
   '0x2127981268A29274AcE00893041F7e9a0F78b400': LIABILITY_JUAN,
